@@ -18,6 +18,9 @@ export default {
 
     }
   },
+  mounted(){
+    sessionStorage.clear()
+  },
   components:{
     'Header':Header
   }

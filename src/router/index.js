@@ -41,22 +41,25 @@ export default new Router({
         name: 'Admin',
         component: Admin,
         // 加上导航守卫
-        // beforeEnter: (to, from, next) => {
-        //     alert('您正在进入admin页面，请确保有操作权限');
-        //表示继续,允许进入当前路由
-        // next()
-        // 表示不允许进入
-        // next(false)
-        // 表示跳转到相应页面
-        // next('/register')
-        //     if (from.path == '/login') {
-        //         next()
-        //     } else {
-        //         alert('您还没有登录，请先登录');
-        //         alert('页面正在跳转...');
-        //         next('/login');
-        //     }
-        // }
+        beforeEnter: (to, from, next) => {
+            //     alert('您正在进入admin页面，请确保有操作权限');
+            //表示继续,允许进入当前路由
+            // next()
+            // 表示不允许进入
+            // next(false)
+            // 表示跳转到相应页面
+            // next('/register')
+            // to到哪里去
+            // from从哪里来
+
+            if (sessionStorage.user) {
+                next()
+            } else {
+                alert('您还没有登录，请先登录')
+                alert('页面正在跳转')
+                next('/login')
+            }
+        }
     }, {
         path: '/about',
         name: 'About',

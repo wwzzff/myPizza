@@ -25,7 +25,7 @@ import axios from 'axios';
 export default {
     data(){
         return{
-            items:[]
+            // items:[]
         }
     },
     mounted(){
@@ -34,24 +34,35 @@ export default {
         .then(res=>{
             console.log(res.data)
             //在这里我们需要获取到key值==>存储为id,方便通过id删除当前项
+            var menus = [];
             for(var key in res.data){
                 console.log(key);
                 var item = res.data[key];
                 item.id = key;
-                that.items.push(item)
+                // that.items.push(item)
+                // 用当前的menu来实现数据的管理
+                menus.push(res.data[key])
             }
-            console.log(that.items)
+            console.log(menus)
+            // 优势在于通过vuex=>store,直接实现了数据的更新
+            that.$store.commit('setMenuItems',menus)
         })
     },
     methods:{
         del(item){
-            axios.delete('./menu-wzf/'+item.id+'.json')
+            axios.delete('/menu-wzf/'+item.id+'.json')
             .then(res=>{
                 alert('删除成功');
-                this.$router.push('/menu')
+                // this.$router.push('/menu')
+                this.$store.commit('deleteMenuItems',item)
                 //刷新页面的方法
                 // location.reload()
             })
+        }
+    },
+    computed:{
+        items(){
+            return this.$store.getters.getMenuItems;
         }
     }
 }

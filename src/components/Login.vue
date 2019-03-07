@@ -45,9 +45,18 @@ export default {
           // 如果 1.匹配成功，登陆成功
           if(trueUser!=null && trueUser.length>0){
             alert('登陆成功');
+            // 发送一个事件到store.js文件
+            // currentUser===>赋值
+            // isLogin===>true
+            this.$store.dispatch('setUser',trueUser[0].username);
+            sessionStorage.setItem('user',trueUser[0].username)
             this.$router.push('/admin');
           }else{
             alert('账号或密码错误');
+          // 发送一个事件到store.js文件
+          // currentUser==>null
+          // isLogin ==>flase
+            this.$store.dispatch('setUser',null);
           }
       })
     }

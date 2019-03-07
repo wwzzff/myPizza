@@ -71,10 +71,11 @@ export default {
                     }
                 ]
             }
-            axios.post('./menu-wzf.json',data)
+            axios.post('/menu-wzf.json',data)
             .then(res=>{
                 console.log(res.data)
-                this.$router.push('/menu')
+                // this.$router.push('/menu')
+                this.$store.commit('pushMenuItems',data)
             })
         }
     }

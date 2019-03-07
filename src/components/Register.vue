@@ -44,6 +44,7 @@ export default {
         axios.post('./user-jsx.json',formData)
           .then((res)=>{
             console.log('当前数据抛出成功')
+            console.log(res.data)
             // 当注册成功时跳转到登录页，引导用户登陆
             // 两种方法实现跳转
             // 堆栈法

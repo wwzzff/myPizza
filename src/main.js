@@ -13,6 +13,21 @@ axios.defaults.baseURL = 'https://wd4109600243wseleu.wilddogio.com/';
 
 Vue.config.productionTip = false
 
+// 全局守卫
+// 当我刚进入localhost:8080的时候，让当前的页面跳转到对应的登录注册页
+router.beforeEach((to, from, next) => {
+    if (sessionStorage.user) { //已登录
+        next();
+    } else { //未登录状态
+        if (to.path == '/login' || to.path == '/register') {
+            next()
+        } else {
+            alert('对不起，你还没有登录，即将跳转到登录界面...');
+            next('/login')
+        }
+    }
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
